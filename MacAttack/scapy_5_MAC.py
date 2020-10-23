@@ -32,5 +32,5 @@ def send(data):
  
 if __name__ == "__main__":
     data=pack()
-    #send(data)
+    send(data)
     print(str(data))
