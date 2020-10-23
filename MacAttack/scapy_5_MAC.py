@@ -23,7 +23,7 @@ def pack():
             datt=Ether(src=srcmac,dst=dstmac)/IP(src=srcip,dst=dstip)
             datt_list.append(datt)
             b+=1 #计数器加1
-        else: #如果已经构造了1000次数据，则使运行条件为假
+        else: #如果已经构造了指定次数据，则使运行条件为假
             a=0
     return datt_list
 def send(data):
