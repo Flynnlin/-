@@ -7,7 +7,7 @@ import random
 
 
 url_history= "http://61.139.70.179:3000/api/a/SignUp/idx/getLoginUserTbqk" #查看历史记录链接艾
-url_log = "http://61.139.70.179:3000/api/loginMobileNew" #登陆链接诶
+url_log = "http://61.139.70.179:3000/api/loginMobile" #登陆链接诶
 url_go = "http://61.139.70.179:3000/api/a/SignUp/idx/saveMRBPA.do" #填报数据链接诶
 
 passwd='XXXXXXXX' #默认密码
