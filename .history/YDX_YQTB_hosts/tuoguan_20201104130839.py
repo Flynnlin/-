@@ -24,7 +24,7 @@ def login(tuoguan_data):
     ###########################################################################
         name = i[0]#
         xh = i[1] #
-        adress = '中国四川省成!!!号'  #填报地址 
+        adress = '中国四川省成都市锦江区狮子山街道静康路534号'  #填报地址 
         tem = i[3]#温度
         bei ='暂无其他症状' #默认备注信息
         tz=i[4] #发送模式
@@ -134,6 +134,15 @@ def login(tuoguan_data):
             status="失败"
         else:
             status="成功"
+        #支持提醒
+        if int(time.ctime()[9:11])==tzd:
+            with open("/www/wwwroot/have/project/python/zhifu.log","r+",encoding="gb2312") as llog:
+                old = llog.read()
+                llog.seek(0)
+                llog.write(name+str(time.ctime())+"到期\n")
+                llog.write(old)
+            name="[到期须缴费]"+name
+            # send_sms(template,phone,"SMS_205401712")
         #填报结果提醒
         if tz == 0:
             pass
@@ -143,18 +152,18 @@ def login(tuoguan_data):
                 'stasus':status,
                 'time':str(time.localtime().tm_mon)+"月"+str(time.localtime().tm_mday)+"日",
                 }
-            send_sms(template,phone,"XXXX")
+            send_sms(template,phone,"SMS_205390289")
         elif tz==1 and "+" in log_mes:
             template={
                 'name':name,
                 'stasus':status,
                 'time':str(time.localtime().tm_mon)+"月"+str(time.localtime().tm_mday)+"日",
             }
-            send_sms(template,phone,"XXXXX")
+            send_sms(template,phone,"SMS_205390289")
         time.sleep(random.randint(10,30))#休眠随机秒（10～30）
 def send_sms(template,phone,mode):
     # client = AcsClient('<accessKeyId>', '<accessSecret>', 'default')
-    client = AcsClient('你的key', '你的key', 'default')
+    client = AcsClient('LTAI4G9FUg4Amv9DtUBSWKLc', 'VkQLh8RIaQzwCtXtQdgo4aUOYvZ4Zv', 'default')
     request = CommonRequest()
     request.set_accept_format('json')
     request.set_domain('dysmsapi.aliyuncs.com')
@@ -168,7 +177,7 @@ def send_sms(template,phone,mode):
     # 这个参数也是固定的
     
     request.add_query_param('PhoneNumbers', phone) # 发给谁
-    request.add_query_param('SignName', "XXX") # 签名
+    request.add_query_param('SignName', "神的口袋") # 签名
     request.add_query_param('TemplateCode', mode) # 模板编号
     request.add_query_param('TemplateParam', template) # 发送验证码内容
     response = client.do_action_with_exception(request)
